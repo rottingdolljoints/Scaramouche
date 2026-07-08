@@ -8,14 +8,21 @@ import { initRiffyAfterReady } from "../services/music/riffySetup.js";
 
 const SCARA_STATUS_TEXT = "do not waste my time";
 
+const SCARA_STATUS_EMOJI = {
+  id: "1512102960568598670",
+  name: "scaramouche_gmfu",
+  animated: true,
+};
+
 async function setScaramouchePresence(client) {
   await client.user.setPresence({
     status: "idle",
     activities: [
       {
-        name: "custom",
+        name: "Custom Status",
         type: ActivityType.Custom,
         state: SCARA_STATUS_TEXT,
+        emoji: SCARA_STATUS_EMOJI,
       },
     ],
   });
