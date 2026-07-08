@@ -52,9 +52,6 @@ export const botConfig = {
     // Supports both slash commands and prefix commands.
     prefix: process.env.PREFIX || "!",
   },
-
-      prefix: process.env.PREFIX || "!",
-  },
   
   // =========================
   // APPLICATIONS SYSTEM
