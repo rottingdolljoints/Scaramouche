@@ -9,8 +9,8 @@ import { initRiffyAfterReady } from "../services/music/riffySetup.js";
 const SCARA_STATUS_TEXT = "do not waste my time";
 
 const SCARA_STATUS_EMOJI = {
-  id: "1512102960568598670",
-  name: "scaramouche_gmfu",
+  id: "1524323170138722324",
+  name: "red_heart_fabric",
   animated: true,
 };
 
