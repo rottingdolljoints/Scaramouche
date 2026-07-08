@@ -441,8 +441,8 @@ export const botConfig = {
     // Core systems.
     economy: true,
     leveling: false,
-    moderation: true,
-    logging: true,
+    moderation: false,
+    logging: false,
     welcome: false,
 
     // Community engagement systems.
