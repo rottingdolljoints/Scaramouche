@@ -8,21 +8,21 @@ import { Mutex } from '../utils/mutex.js';
 
 export async function addXp(client, guild, member, xpToAdd) {
   const lockKey = `leveling:${guild.id}:${member.user.id}`;
+
   return await Mutex.runExclusive(lockKey, async () => {
     try {
-      
       if (!xpToAdd || xpToAdd <= 0) {
         return { success: false, reason: 'Invalid XP amount' };
       }
 
       const config = await getLevelingConfig(client, guild.id);
-      
+
       if (!config.enabled) {
         return { success: false, reason: 'Leveling is disabled in this server' };
       }
-      
+
       const levelData = await getUserLevelData(client, guild.id, member.user.id);
-      
+
       levelData.xp += xpToAdd;
       levelData.totalXp += xpToAdd;
       levelData.lastMessage = Date.now();
@@ -45,10 +45,8 @@ export async function addXp(client, guild, member, xpToAdd) {
       }
 
       if (didLevelUp) {
-        
-        if (config.announceLevelUp) {
-          await sendLevelUpAnnouncement(guild, member, levelData, config);
-        }
+        // Public level-up announcements are disabled on purpose.
+        // XP, leveling, role rewards, and private logs still work.
 
         try {
           await logEvent({
@@ -70,9 +68,9 @@ export async function addXp(client, guild, member, xpToAdd) {
           logger.debug('Failed to log leveling event:', logError.message);
         }
       }
-      
+
       await saveUserLevelData(client, guild.id, member.user.id, levelData);
-      
+
       return {
         success: true,
         level: levelData.level,
@@ -81,7 +79,7 @@ export async function addXp(client, guild, member, xpToAdd) {
         xpNeeded: getXpForLevel(levelData.level + 1),
         leveledUp: didLevelUp
       };
-      
+
     } catch (error) {
       logger.error('Error adding XP:', error);
       return { success: false, error: error.message };
@@ -92,7 +90,7 @@ export async function addXp(client, guild, member, xpToAdd) {
 async function awardRoleReward(guild, member, roleId, level) {
   try {
     const role = guild.roles.cache.get(roleId);
-    
+
     if (!role) {
       logger.warn(`Role ${roleId} not found for level ${level} reward in guild ${guild.id}`);
       return;
@@ -107,9 +105,4 @@ async function awardRoleReward(guild, member, roleId, level) {
   } catch (error) {
     logger.error(`Failed to award role reward to ${member.user.id}:`, error);
   }
-}
-
-async function sendLevelUpAnnouncement(guild, member, levelData, config) {
-  // Level-up announcements are intentionally disabled.
-  return;
 }
