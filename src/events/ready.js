@@ -6,24 +6,35 @@ import { reconcileTicketPanels, reconcileVerificationPanels, reconcileReactionRo
 import { reconcileLevelRoles } from "../services/levelRoleSyncService.js";
 import { initRiffyAfterReady } from "../services/music/riffySetup.js";
 
+const SCARA_STATUS_TEXT = "do not waste my time";
+
+async function setScaramouchePresence(client) {
+  await client.user.setPresence({
+    status: "idle",
+    activities: [
+      {
+        name: "custom",
+        type: ActivityType.Custom,
+        state: SCARA_STATUS_TEXT,
+      },
+    ],
+  });
+
+  await client.user.setStatus("idle");
+
+  startupLog(`Presence set: idle + ${SCARA_STATUS_TEXT}`);
+}
+
 export default {
   name: Events.ClientReady,
   once: true,
 
   async execute(client) {
     try {
-  await client.user.setPresence({
-        status: "idle",
-        activities: [
-          {
-            name: "hard to impress",
-            type: ActivityType.Playing,
-          },
-        ],
-      });
+      await setScaramouchePresence(client);
+
       startupLog(`Presence after set: ${JSON.stringify(client.user.presence?.activities || [])}`);
-      startupLog("Presence set: Playing hard to impress");
-      
+
       startupLog(`Ready! Logged in as ${client.user.tag}`);
       startupLog(`Serving ${client.guilds.cache.size} guild(s)`);
       startupLog(`Loaded ${client.commands.size} commands`);
@@ -56,6 +67,15 @@ export default {
       startupLog(
         `Level role sync: scanned ${levelRoleSummary.scannedGuilds} guilds, pruned ${levelRoleSummary.prunedRewardEntries} stale rewards, re-awarded ${levelRoleSummary.rolesReAwarded} roles, errors ${levelRoleSummary.errors}`
       );
+
+      setTimeout(async () => {
+        try {
+          await setScaramouchePresence(client);
+          startupLog("Delayed presence refresh complete.");
+        } catch (error) {
+          logger.warn("Delayed presence refresh failed:", error.message);
+        }
+      }, 10000);
     } catch (error) {
       logger.error("Error in ready event:", error);
     }
