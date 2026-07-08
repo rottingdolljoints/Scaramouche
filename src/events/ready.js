@@ -1,4 +1,4 @@
-import { Events } from "discord.js";
+import { Events, ActivityType } from "discord.js";
 import { logger, startupLog } from "../utils/logger.js";
 import config from "../config/application.js";
 import { reconcileReactionRoleMessages } from "../services/reactionRoleService.js";
@@ -17,11 +17,13 @@ export default {
         activities: [
           {
             name: "hard to impress",
-            type: 0,
+            type: ActivityType.Playing,
           },
         ],
       });
-
+      
+      startupLog("Presence set: Playing hard to impress");
+      
       startupLog(`Ready! Logged in as ${client.user.tag}`);
       startupLog(`Serving ${client.guilds.cache.size} guild(s)`);
       startupLog(`Loaded ${client.commands.size} commands`);
