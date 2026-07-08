@@ -12,7 +12,7 @@ export default {
 
   async execute(client) {
     try {
-      client.user.setPresence({
+  await client.user.setPresence({
         status: "idle",
         activities: [
           {
@@ -21,7 +21,7 @@ export default {
           },
         ],
       });
-      
+      startupLog(`Presence after set: ${JSON.stringify(client.user.presence?.activities || [])}`);
       startupLog("Presence set: Playing hard to impress");
       
       startupLog(`Ready! Logged in as ${client.user.tag}`);
