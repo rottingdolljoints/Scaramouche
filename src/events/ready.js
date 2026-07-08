@@ -12,7 +12,15 @@ export default {
 
   async execute(client) {
     try {
-      client.user.setPresence(config.bot.presence);
+      client.user.setPresence({
+        status: "idle",
+        activities: [
+          {
+            name: "hard to impress",
+            type: 0,
+          },
+        ],
+      });
 
       startupLog(`Ready! Logged in as ${client.user.tag}`);
       startupLog(`Serving ${client.guilds.cache.size} guild(s)`);
