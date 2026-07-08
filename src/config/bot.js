@@ -55,12 +55,7 @@ export const botConfig = {
 
       prefix: process.env.PREFIX || "!",
   },
-
-  // =========================
-  // APPLICATIONS SYSTEM
-  // =========================
-  applications: {
-
+  
   // =========================
   // APPLICATIONS SYSTEM
   // =========================
