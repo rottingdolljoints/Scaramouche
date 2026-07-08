@@ -91,14 +91,14 @@ export const botConfig = {
   embeds: {
     colors: {
       // Main brand colors.
-      primary: "#336699",
-      secondary: "#2F3136",
+      primary: "#8B0000",
+      secondary: "#120B17",
 
       // Standard status colors for success/error/warning/info messages.
       success: "#57F287",
       error: "#ED4245",
       warning: "#FEE75C",
-      info: "#3498DB",
+      info: "#5B2A86",
 
       // Neutral utility colors.
       light: "#FFFFFF",
@@ -159,9 +159,9 @@ export const botConfig = {
   economy: {
     currency: {
       // Currency display name.
-      name: "coins",
+      name: "mora",
       // Plural display name.
-      namePlural: "coins",
+      namePlural: "mora coins",
       // Currency symbol shown in balances.
       symbol: "$",
     },
@@ -424,13 +424,13 @@ export const botConfig = {
   // GENERIC BOT MESSAGES
   // =========================
   messages: {
-    noPermission: "You do not have permission to use this command.",
-    cooldownActive: "Please wait {time} before using this command again.",
-    errorOccurred: "An error occurred while executing this command.",
+    noPermission: "You do not have the authority to use this. Cute attempt, though.",
+    cooldownActive: "Impatient, are we? Wait {time} before trying again.",
+    errorOccurred: "Huh.. something broke. Try not to look so pleased about it.",
     missingPermissions:
-      "I am missing required permissions to perform this action.",
-    commandDisabled: "This command has been disabled.",
-    maintenanceMode: "The bot is currently in maintenance mode.",
+      "I lack the permissions for that. Ask Maddie to fix it before blaming me.",
+    commandDisabled: "That command is unavailable.",
+    maintenanceMode: "I am currently unavailable. You can survive without me for a moment.",
   },
 
   // =========================
